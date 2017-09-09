@@ -6,11 +6,10 @@ class TradeDatabase(object):
 	def __init__(self):
 		pass
 
-	def connect(self, user='postgres', password='pokemon1995', db='tradingbot', host='localhost', port=5432):
+	def connect(self):
 		'''Returns a connection and a metadata object'''
 		# We connect with the help of the PostgreSQL URL
-		self.url = 'postgresql://{}:{}@{}:{}/{}'
-		self.url = self.url.format(user, password, host, port, db)
+		self.url = 'postgres://lpzqiiuvnsltmv:5cb622f61b28fff5acc5345387355c923babd9d846afbd02e6bacc54ec32b694@ec2-107-22-211-182.compute-1.amazonaws.com:5432/did369bmda40b'
 
 		# The return value of create_engine() is our connection object
 		self.con = sqlalchemy.create_engine(self.url, client_encoding='utf8')
