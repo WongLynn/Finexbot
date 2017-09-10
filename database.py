@@ -1,11 +1,29 @@
 import sqlalchemy
 import pandas as pd
 import numpy as np
+import psycopg2
+import urllib.parse as urlparse
+import os
+os.environ['DATABASE_URL'] = 'postgres://lpzqiiuvnsltmv:5cb622f61b28fff5acc5345387355c923babd9d846afbd02e6bacc54ec32b694@ec2-107-22-211-182.compute-1.amazonaws.com:5432/did369bmda40b'
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
+dbname = url.path[1:]
+user = url.username
+password = url.password
+host = url.hostname
+port = url.port
 
-def __init__(self):
-    pass
+con = psycopg2.connect(
+            dbname=dbname,
+            user=user,
+            password=password,
+            host=host,
+            port=port
+            )
 
-def connect( user, password, db, host='localhost', port=5432):
+#def __init__(self):
+#    pass
+
+"""def connect( user, password, db, host='localhost', port=5432):
     '''Returns a connection and a metadata object'''
     # We connect with the help of the PostgreSQL URL
     # postgresql://federer:grandestslam@localhost:5432/tennis
@@ -24,7 +42,7 @@ con, meta = connect('postgres','pokemon1995','tradingbot')
 
 from sqlalchemy import Table, Column, Integer, String, Float
 
-"""db = Table('tick', meta,
+db = Table('tick', meta,
     Column('date', Float, primary_key=True),
     Column('price', Float),
     Column('trend', Float),
@@ -35,7 +53,6 @@ from sqlalchemy import Table, Column, Integer, String, Float
     Column('closedLong', Float),
     Column('closedShort', Float)
 )
-"""
 db = meta.tables['tick']
 
 with con.connect() as conn:
@@ -70,4 +87,4 @@ print ((tradeplacedlist))
 tradeplacedlist = [i for i in tradeplacedlist if i*0  == 0]
 print ((tradeplacedlist))
 ##pricelist = df['price'].tolist()
-#print (datelist)
+#print (datelist)"""
