@@ -84,8 +84,7 @@ class BotStrategy(object):
 		#print numofwins, numofloses and cumulated profits to cmd line
 		self.cumulatedProfits, self.numofwins, self.numofloses = self.TradeDatabase.cumwinloss()
 		self.output.log("No. of Wins: {}, No. of Loses: {}, Cumulated Profits: {}".format(self.numofwins, self.numofloses, self.cumulatedProfits))
-		self.output.log("trade placed: {}, typeoftrade: {}, cryptoamt: {}".format(self.tradePlaced[-1],self.typeOfTrade[-1],self.cryptoAmount[-1]))
-		self.output.log("MAC indicators: {} and {}; EMA9 indicators: {} and {}".format(self.MACD[-2],self.MACD[-1],self.EMA9[-2],self.EMA9[-1]))
+
 	#decide when to buy and when to sell - MACD strat + 200 period SMA  - maybe can implement stops (?) GOLDEN GRAIL!!!
 	def evaluatePositions(self):
 		try:
@@ -93,12 +92,12 @@ class BotStrategy(object):
 				#if market is bullish - only take buy signals
 				if self.currentPrice > self.SMA:
 					#MACD indicator - when EMA9 crosses higher than the MACD curve - buy
-					if (self.EMA9[-2] < self.MACD[-2]) and (self.EMA9[-1] > self.MACD[-1]):
+					if (len(self.MACD) > 1) and (self.EMA9[-2] < self.MACD[-2]) and (self.EMA9[-1] > self.MACD[-1]):
 						self.buyposition()
 				#elif market is bearish - only take sell signals
 				elif self.currentPrice < self.SMA:
 					#MACD indicator - when EMA9 crosses lower than the MACD curve - sell
-					if (self.EMA9[-2] > self.MACD[-2]) and (self.EMA9[-1] < self.MACD[-1]):
+					if (len(self.MACD) > 1) and (self.EMA9[-2] > self.MACD[-2]) and (self.EMA9[-1] < self.MACD[-1]):
 						self.sellposition()
 			elif self.typeOfTrade[-1] == "long":
 				#MACD indicator - when EMA9 crosses lower than the MACD curve - sell
@@ -129,7 +128,7 @@ class BotStrategy(object):
 		self.TradeDatabase.insertStatement04(self.dataDate, amountincryptos,self.currentPrice,1,"short")
 
 	def closeLong(self):
-		netProfit = self.cryptoAmount * self.currentPrice - self.amountInUSD
+		netProfit = self.cryptoAmount[-1] * self.currentPrice - self.amountInUSD
 		self.TradeDatabase.insertStatement05(self.dataDate, netProfit)
 		self.cumulatedProfits, self.numofwins, self.numofloses = self.TradeDatabase.cumwinloss()
 		self.TradeDatabase.insertStatement06(self.dataDate, self.currentPrice,0)
@@ -141,7 +140,7 @@ class BotStrategy(object):
 			self.output.log("No. of Wins: {}, No. of Loses: {}, Win Rate: {}".format(self.numofwins,self.numofloses, round(self.numofwins/(self.numofwins + self.numofloses),2)))
 
 	def closeShort(self):
-		netProfit = (0.996 * self.amountInUSD) - (self.currentPrice * self.cryptoAmount)
+		netProfit = (0.996 * self.amountInUSD) - (self.currentPrice * self.cryptoAmount[-1])
 		self.TradeDatabase.insertStatement05(self.dataDate, netProfit)
 		self.cumulatedProfits, self.numofwins, self.numofloses = self.TradeDatabase.cumwinloss()
 		self.TradeDatabase.insertStatement07(self.dataDate, self.currentPrice,0)

@@ -36,7 +36,7 @@ class TradeDatabase(object):
 		self.con.connect().execute(update_statement)
 
 	def insertStatement05(self, date, netProfit):
-		update_statement = self.db.update().where(self.db.c.date==date).values(netProfit=netprofits)
+		update_statement = self.db.update().where(self.db.c.date==date).values(netprofits=netProfit)
 		self.con.connect().execute(update_statement)
 
 	def insertStatement06(self, date, closedLong, tradePlaced):
@@ -67,6 +67,7 @@ class TradeDatabase(object):
 	def cumwinloss(self):
 		self.df = pd.read_sql_table('tick', self.con)
 		self.netprofitslist = self.df['netprofits'].tolist()
+		self.netprofitslist = [i for i in self.netprofitslist if i*0 == 0]
 		self.cumulatedprofits = sum(self.netprofitslist)
 		self.numofwins = len([i for i in self.netprofitslist if i > 0])
 		self.numofloses = len([i for i in self.netprofitslist if i < 0])

@@ -1,8 +1,8 @@
 from termcolor import colored
 import colorama
 import plotly
-plotly.tools.set_credentials_file(username='geraldlow7', api_key='GNOcmxGffCMYyzHXZJuB')
-stream_tokens = plotly.tools.get_credentials_file()['stream_ids']
+plotly.plotly.sign_in(username='geraldlow7', api_key='GNOcmxGffCMYyzHXZJuB')
+stream_tokens = ['u89ukk5e8r','kn4zw6qccw','hkfoxrwzsz','4r8nh5203d','48s4a4nvxu','6lvg791a6u','qmlh3dpj39','k5xydfxair','sathxv0gi8','lafx97wb97','uxuhh7cuxf']
 import numpy as np
 import pandas as pd
 colorama.init()
@@ -59,7 +59,7 @@ class BotLog(object):
 			)
 		trace2 = plotly.graph_objs.Scatter(
 			x = dataPoints['date'],
-			y = dataPoints['closedLong'],
+			y = dataPoints['closedlong'],
 			mode = 'markers+text',
 			name = 'CLOSED LONG positions',
 			text = 'CLOSE LONG',
@@ -77,7 +77,7 @@ class BotLog(object):
 			)
 		trace4 = plotly.graph_objs.Scatter(
 			x = dataPoints['date'],
-			y = dataPoints['closedShort'],
+			y = dataPoints['closedshort'],
 			mode = 'markers+text',
 			name = 'CLOSED SHORT positions',
 			text = 'CLOSE SHORT',
@@ -98,13 +98,13 @@ class BotLog(object):
 			)
 		trace7 = plotly.graph_objs.Scatter(
 			x = dataPoints['date'],
-			y = dataPoints['SMA'],
+			y = dataPoints['sma'],
 			name = '200 SMA',
 			stream = stream_id8
 			)
 		trace8 = plotly.graph_objs.Scatter(
 			x = dataPoints['date'],
-			y = dataPoints['RSI'],
+			y = dataPoints['rsi'],
 			name = 'RSI',
 			stream = stream_id9
 			)

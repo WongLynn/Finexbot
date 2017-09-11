@@ -9,7 +9,7 @@ def main():
 		strategy.tick()
 		strategy.evaluatePositions()
 		#graphing EMAs and MACD indicator:
-		#strategy.output.macdrsiplot(strategy.graphdataPoints, strategy.EMA9, strategy.MACD, strategy.cumulatedProfits)
+		strategy.output.macdrsiplot(strategy.graphdataPoints, strategy.EMA9, strategy.MACD, strategy.cumulatedProfits)
 		time.sleep(60) #define timestamp period
 
 
