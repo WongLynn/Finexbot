@@ -43,7 +43,11 @@ class BotStrategy(object):
 				time.sleep(10)
 				self.APIlist = FinexAPI.ticker()
 			except:
-				pass
+				try:
+					time.sleep(10)
+					self.APIlist = FinexAPI.ticker()
+				except:
+					pass
 
 		#date
 		self.dataDate = datetime.datetime.fromtimestamp(int(float(self.APIlist["timestamp"]))).strftime('%Y-%m-%d %H:%M:%S')

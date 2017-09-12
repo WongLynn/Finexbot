@@ -73,3 +73,11 @@ class TradeDatabase(object):
 		self.numofloses = len([i for i in self.netprofitslist if i < 0])
 		return self.cumulatedprofits, self.numofwins, self.numofloses
 
+	def closecon(self):
+		self.con.dispose()
+
+instance = TradeDatabase()
+instance.connect()
+a , b , c = instance.cumwinloss()
+print (a)
+instance.closecon()

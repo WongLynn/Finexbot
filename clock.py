@@ -8,6 +8,7 @@ def main():
 	#implementation starts
 	strategy.tick()
 	strategy.evaluatePositions()
+	strategy.TradeDatabase.closecon() #disposes all connections to save memory
 	#graphing EMAs and MACD indicator:
 	strategy.output.macdrsiplot(strategy.graphdataPoints, strategy.EMA9, strategy.MACD, strategy.cumulatedProfits)
 
