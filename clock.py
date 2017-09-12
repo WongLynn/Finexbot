@@ -15,7 +15,7 @@ def main():
 if __name__ == "__main__":
 	scheduler = BlockingScheduler()
 	scheduler.add_executor('processpool')
-	scheduler.add_job(main, 'interval', seconds=1800)
+	scheduler.add_job(main, 'cron', hour='0,4,8,12,16,20')
 	print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
 	try:

@@ -75,9 +75,3 @@ class TradeDatabase(object):
 
 	def closecon(self):
 		self.con.dispose()
-
-instance = TradeDatabase()
-instance.connect()
-a , b , c = instance.cumwinloss()
-print (a)
-instance.closecon()
