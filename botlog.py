@@ -136,7 +136,7 @@ class BotLog(object):
 		fig.append_trace(trace10, 3, 1)
 
 		fig['layout'].update(title="Cumulated Profits: {}".format(round(cumulatedProfits,2)))
-		plotly.plotly.iplot(fig, filename='crypto-macd-rsi')
+		plotly.plotly.plot(fig, filename='crypto-macd-rsi')
 		plotly.plotly.Stream(stream_id=token_1).open()
 		plotly.plotly.Stream(stream_id=token_2).open()
 		plotly.plotly.Stream(stream_id=token_3).open()
