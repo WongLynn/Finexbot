@@ -49,16 +49,19 @@ class TradeDatabase(object):
 
 	def frameit(self):
 		self.df = pd.read_sql_table('tick', self.con)
+		self.df = self.df.sort_values(by='date')
 		return self.df
 
 	def readtolist01(self):
 		self.df = pd.read_sql_table('tick', self.con)
+		self.df = self.df.sort_values(by='date')
 		self.datelist = self.df['date'].tolist()
 		self.pricelist = self.df['price'].tolist()
 		return self.datelist, self.pricelist
 
 	def readtolist02(self):
 		self.df = pd.read_sql_table('tick', self.con)
+		self.df = self.df.sort_values(by='date')
 		self.typeoftradelist = self.df['typeoftrade'].tolist()
 		self.tradeplacedlist = self.df['tradeplaced'].tolist()
 		self.cryptoamountlist = self.df['cryptoamount'].tolist()
